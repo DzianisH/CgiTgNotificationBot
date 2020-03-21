@@ -1,9 +1,14 @@
-#!/usr/bin/python3
+#!/usr/bin/python3.6
 
 import cgi
 import cgitb
 
 cgitb.enable()
+
+import sys
+import codecs
+
+sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
 
 from telegram.ext import Updater
 
@@ -49,7 +54,7 @@ form = cgi.FieldStorage()
 msg = build_message(form)
 send_notification(msg)
 
-print("Content-Type: text/html\n\n")
+print("Content-Type: text/html; charset=utf-8\n")
 print("""
 <p>Надо бы сверстать страницу с текстом "ок, вы подписались" и ещё одну "не вышло подписаться, потому что вы мудак"</p>
 """)
